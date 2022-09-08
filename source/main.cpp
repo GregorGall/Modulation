@@ -3,33 +3,33 @@
 
 int main() {
 
-	/* Параметры генератора */
+	/* РџР°СЂР°РјРµС‚СЂС‹ РіРµРЅРµСЂР°С‚РѕСЂР° */
 	double carrier = 13e6;
 	double period = 1 / carrier;
 	double timePoint1 = 0;
 	double timePoint2 = 100 * period;
 
-	/* Простой синусоидальный сигнал */
-	LabSource plainSin(timePoint1, timePoint2, carrier);							// Инициализация генератора сигнала
-	plainSin.setRange(0.5 * carrier, 1.5 * carrier);								// Установка границ преобразования Фурье
+	/* РџСЂРѕСЃС‚РѕР№ СЃРёРЅСѓСЃРѕРёРґР°Р»СЊРЅС‹Р№ СЃРёРіРЅР°Р» */
+	LabSource plainSin(timePoint1, timePoint2, carrier);							// РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РіРµРЅРµСЂР°С‚РѕСЂР° СЃРёРіРЅР°Р»Р°
+	plainSin.setRange(0.5 * carrier, 1.5 * carrier);								// РЈСЃС‚Р°РЅРѕРІРєР° РіСЂР°РЅРёС† РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёСЏ Р¤СѓСЂСЊРµ
 	auto u1 = plainSin.sin().getValue();
 	auto s1 = plainSin.cmFT().getValue(Format::ABS);
 
-	/* Амплитудная модуляция синусом */
+	/* РђРјРїР»РёС‚СѓРґРЅР°СЏ РјРѕРґСѓР»СЏС†РёСЏ СЃРёРЅСѓСЃРѕРј */
 	LabSource amSin(timePoint1, timePoint2, carrier);
 	amSin.setRange(0.5 * carrier, 1.5 * carrier);
-	amSin.setModParameters({ getSinMod(timePoint2, 5), Modulation::AMP, 0.5 });		// { указатель на мод.функцию, тип модуляции, глубина модуляции }
+	amSin.setModParameters({ getSinMod(timePoint2, 5), Modulation::AMP, 0.5 });		// { СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РјРѕРґ.С„СѓРЅРєС†РёСЋ, С‚РёРї РјРѕРґСѓР»СЏС†РёРё, РіР»СѓР±РёРЅР° РјРѕРґСѓР»СЏС†РёРё }
 	auto u2 = amSin.sin().getValue();
 	auto s2 = amSin.cmFT().getValue(Format::ABS);
 
-	/* Частотная модуляция синусом */
+	/* Р§Р°СЃС‚РѕС‚РЅР°СЏ РјРѕРґСѓР»СЏС†РёСЏ СЃРёРЅСѓСЃРѕРј */
 	LabSource fmSin(timePoint1, timePoint2, carrier);
 	fmSin.setRange(0.5 * carrier, 1.5 * carrier);
 	fmSin.setModParameters({ getSinMod(timePoint2, 5), Modulation::FRQ, 0.2*carrier });
 	auto u3 = fmSin.sin().getValue();
 	auto s3 = fmSin.cmFT().getValue(Format::ABS);
 
-	/* Фазовая модуляция синусом */
+	/* Р¤Р°Р·РѕРІР°СЏ РјРѕРґСѓР»СЏС†РёСЏ СЃРёРЅСѓСЃРѕРј */
 	LabSource pmSin(timePoint1, timePoint2, carrier);
 	pmSin.setRange(0.5 * carrier, 1.5 * carrier);
 	pmSin.setModParameters({ getSinMod(timePoint2, 5), Modulation::PH, 1 });
@@ -37,7 +37,7 @@ int main() {
 	auto s4 = pmSin.cmFT().getValue(Format::ABS);
 
 
-	/* Отрисовка графиков */
+	/* РћС‚СЂРёСЃРѕРІРєР° РіСЂР°С„РёРєРѕРІ */
 	ConsoleGraph graph(750, 450, {4, 2});
 	graph.plot(u1);
 	graph.plot(s1, 1, 2);
