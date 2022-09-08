@@ -1,0 +1,6 @@
+[submodule "LabSource"]
+	path = LabSource
+	url = ../LabSource/
+[submodule "ConsoleGraph"]
+	path = ConsoleGraph
+	url = ../ConsoleGraph/
